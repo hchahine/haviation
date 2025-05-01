@@ -1,7 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Two Button Page</title>
+  <style>
+    body {
+      background-color: #f4f4f9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      color: #333;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #4a90e2;
+      color: white;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>Edited</p>
+  <h1>Select an Option</h1>
+  <div class="button-container">
+    <button onclick="window.location.href='https://example.com/page1'">Go to Page 1</button>
+    <button onclick="window.location.href='https://example.com/page2'">Go to Page 2</button>
+  </div>
 </body>
 </html>
