@@ -14,20 +14,26 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding: 20px;
     }
 
     h1 {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       color: #333;
+      font-size: 20px;
+      text-align: center;
     }
 
     .button-container {
       display: flex;
-      gap: 20px;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 300px;
     }
 
     button {
-      padding: 12px 24px;
+      padding: 12px;
       font-size: 16px;
       border: none;
       border-radius: 8px;
@@ -35,6 +41,7 @@
       background-color: #4a90e2;
       color: white;
       transition: background-color 0.2s ease;
+      width: 100%;
     }
 
     button:hover {
@@ -43,9 +50,8 @@
   </style>
 </head>
 <body>
-  <h1>Select link</h1>
   <div class="button-container">
-    <button onclick="window.location.href='http://hamaviation.com.s3-website-ap-southeast-2.amazonaws.com/'">Go to hamavation</button>
+    <button onclick="window.location.href='http://hamaviation.com.s3-website-ap-southeast-2.amazonaws.com/'">Go to HamAviation</button>
     <button onclick="window.location.href='http://gpx-elevation.s3-website-ap-southeast-2.amazonaws.com/'">Go to GPX Profiler</button>
   </div>
 </body>
