@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Haviation Links</title>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       background-color: #f4f4f9;
       font-family: Arial, sans-serif;
@@ -12,16 +17,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      margin-bottom: 30px;
-      color: #333;
-      font-size: 20px;
-      text-align: center;
+      height: 100dvh; /* uses dynamic viewport height */
+      overflow: hidden;
     }
 
     .button-container {
@@ -30,6 +27,7 @@
       gap: 12px;
       width: 100%;
       max-width: 300px;
+      padding: 0 20px;
     }
 
     button {
@@ -38,21 +36,27 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      background-color: #4a90e2;
+      background: linear-gradient(135deg, #4a90e2, #357ab8);
       color: white;
-      transition: background-color 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background 0.2s ease, transform 0.1s ease;
       width: 100%;
     }
 
     button:hover {
-      background-color: #357ab8;
+      background: linear-gradient(135deg, #5aa3f0, #2f69a6);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
   <div class="button-container">
-    <button onclick="window.location.href='http://hamaviation.com.s3-website-ap-southeast-2.amazonaws.com/'">Go to HamAviation</button>
-    <button onclick="window.location.href='http://gpx-elevation.s3-website-ap-southeast-2.amazonaws.com/'">Go to GPX Profiler</button>
+    <button onclick="window.open('http://hamaviation.com.s3-website-ap-southeast-2.amazonaws.com/', '_blank')">Go to HamAviation</button>
+    <button onclick="window.open('http://gpx-elevation.s3-website-ap-southeast-2.amazonaws.com/', '_blank')">Go to GPX Profiler</button>
   </div>
 </body>
 </html>
