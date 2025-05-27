@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GPX Elevation Profile</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    header {
+      padding: 10px;
+      background: #2c3e50;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.2em;
+      flex: 1;
+    }
+
+    .input-container {
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .input-container label {
+      font-size: 1em;
+      color: #333;
+    }
+
+    .input-container select, .input-container input {
+      padding: 8px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .input-container select {
+      width: 120px;
+    }
+
+    .input-container input[type="file"] {
+      width: 250px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+      padding: 10px;
+    }
+
+    #map {
+      flex: 7;
+      height: 70%;
+      margin-bottom: 10px;
+    }
+
+    #chart-container {
+      flex: 3;
+      height: 30%;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>GPX Elevation Profile</h1>
+  <div class="input-container">
+    <input type="file" id="gpx-file" accept=".gpx" />
+  </div>
+</header>
+
+<main>
+  <div id="map"></div>
+  <div id="chart-container">
+    <canvas id="elevationChart"></canvas>
+  </div>
+</main>
+
+<script>
+  const NM_TO_KM = 1.852;
+
+  let map;
+  let currentPolyline;
+  let chart;
+  let movingMarker;
+  let interpolatedPoints = [];
+  let spacingNM = 0.1;
+
+  function initMap() {
+    map = L.map('map').setView([-37.8136, 144.9631], 13);
+
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    const esriImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics'
+    });
+
+    const esriLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Labels &copy; Esri'
+    });
+
+    const satelliteWithLabels = L.layerGroup([esriImagery, esriLabels]);
+
+    const baseMaps = {
+      "Standard": osmLayer,
+      "Satellite": esriImagery,
+      "Hybrid": satelliteWithLabels
+    };
+
+    osmLayer.addTo(map);
+    L.control.layers(baseMaps).addTo(map);
+  }
+
+  function createMovingMarker(lat, lon) {
+    if (movingMarker) map.removeLayer(movingMarker);
+    movingMarker = L.circleMarker([lat, lon], {
+      radius: 5,
+      color: 'blue',
+      fillColor: 'blue',
+      fillOpacity: 1,
+    }).addTo(map);
+  }
+
+  function initChart() {
+    const ctx = document.getElementById('elevationChart').getContext('2d');
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Elevation (ft)',
+          data: [],
+          borderColor: 'green',
+          fill: false,
+          pointRadius: 0,
+          tension: 0.2
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          x: { title: { display: true, text: 'Distance (NM)' } },
+          y: { title: { display: true, text: 'Elevation (ft)' } }
+        }
+      }
+    });
+  }
+
+  document.getElementById('elevationChart').addEventListener('mousemove', function(event) {
+    const chartPointIndex = getChartIndexFromMousePosition(event);
+    if (chartPointIndex !== -1 && interpolatedPoints[chartPointIndex]) {
+      const point = interpolatedPoints[chartPointIndex];
+      movingMarker?.setLatLng([point[0], point[1]]);
+    }
+  });
+
+  function getChartIndexFromMousePosition(event) {
+    if (!chart || !chart.chartArea) return -1;
+
+    const chartArea = chart.chartArea;
+    const xPos = event.offsetX;
+
+    if (xPos < chartArea.left || xPos > chartArea.right) return -1;
+
+    const totalWidth = chartArea.right - chartArea.left;
+    const percentage = (xPos - chartArea.left) / totalWidth;
+
+    let pointIndex = Math.floor(percentage * interpolatedPoints.length);
+    return Math.max(0, Math.min(pointIndex, interpolatedPoints.length - 1));
+  }
+
+  function interpolate(startPoint, endPoint, spacingNM) {
+    const lat1 = startPoint[0], lon1 = startPoint[1];
+    const lat2 = endPoint[0], lon2 = endPoint[1];
+
+    const distanceNM = haversine(lat1, lon1, lat2, lon2);
+    const steps = Math.ceil(distanceNM / spacingNM);
+    const interpolated = [];
+
+    for (let i = 0; i <= steps; i++) {
+      const fraction = i / steps;
+      const lat = lat1 + fraction * (lat2 - lat1);
+      const lon = lon1 + fraction * (lon2 - lon1);
+      interpolated.push([lat, lon]);
+    }
+
+    return interpolated;
+  }
+
+  function haversine(lat1, lon1, lat2, lon2) {
+    const R = 3440;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  async function fetchElevations(points) {
+    const url = 'https://api.open-elevation.com/api/v1/lookup';
+    const body = JSON.stringify({
+      locations: points.map(p => ({ latitude: p[0], longitude: p[1] }))
+    });
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    });
+
+    const data = await response.json();
+    if (!data.results) {
+      console.error('Failed to fetch elevation data.');
+      return [];
+    }
+
+    return data.results.map((result, index) => ({
+      lat: points[index][0],
+      lon: points[index][1],
+      elevation: result.elevation * 3.28084, // convert to feet
+      distance: index * spacingNM
+    }));
+  }
+
+  document.getElementById('gpx-file').addEventListener('change', async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const gpxText = await file.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(gpxText, "application/xml");
+
+    let points = [...xml.querySelectorAll("rtept, trkpt, wpt")].map(el => [
+      parseFloat(el.getAttribute("lat")),
+      parseFloat(el.getAttribute("lon"))
+    ]);
+
+    if (points.length < 2) return;
+
+    interpolatedPoints = [];
+    for (let i = 0; i < points.length - 1; i++) {
+      const segment = interpolate(points[i], points[i + 1], spacingNM);
+      interpolatedPoints.push(...segment);
+    }
+    interpolatedPoints.push(points[points.length - 1]);
+
+    const elevations = await fetchElevations(interpolatedPoints);
+    plotElevations(elevations);
+    plotMap(interpolatedPoints);
+  });
+
+  function plotElevations(data) {
+    if (chart) chart.destroy();
+
+    const ctx = document.getElementById('elevationChart').getContext('2d');
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.map(d => d.distance.toFixed(2)),
+        datasets: [{
+          label: 'Elevation (ft)',
+          data: data.map(d => d.elevation),
+          borderColor: 'green',
+          fill: false,
+          pointRadius: 0,
+          tension: 0.2
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          x: { title: { display: true, text: 'Distance (NM)' } },
+          y: { title: { display: true, text: 'Elevation (ft)' } }
+        }
+      }
+    });
+
+    const first = data[0];
+    if (first) createMovingMarker(first.lat, first.lon);
+  }
+
+  function plotMap(points) {
+    if (currentPolyline) map.removeLayer(currentPolyline);
+    const latLngs = points.map(p => [p[0], p[1]]);
+    currentPolyline = L.polyline(latLngs, { color: 'blue' }).addTo(map);
+    map.fitBounds(currentPolyline.getBounds());
+  }
+
+  initMap();
+  initChart();
+</script>
+
+</body>
+</html>

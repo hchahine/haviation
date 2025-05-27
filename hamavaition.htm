@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/@blaze/css@x.x.x/dist/blaze/blaze.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ham Avaiation</title>
+        <style type="text/css">
+            td {
+  text-align: center;
+}
+        </style>
+    </head>
+    <body class="u-bg-grey-lighter" style="font-family:Roboto" >
+        <div id="mainContainer" class="o-container o-container--super ">
+            <div class="c-card u-highest">
+                <div class="c-card__item c-card__item--info">YLIL</div>
+                <div class="c-card__item">
+                    <div class="o-grid o-grid--small-fit o-grid--medium-full o-grid--large-full o-grid--demo">
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://view.myairportcams.com/YLIL/showimagecamera1.php"><img class="o-image" src="https://view.myairportcams.com/YLIL/showimagecamera1.php"></a>
+                        </div>
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://view.myairportcams.com/YLIL/showimagecamera2.php"><img class="o-image" src="https://view.myairportcams.com/YLIL/showimagecamera2.php"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <div class="c-card u-highest">
+                <div class="c-card__item c-card__item--info">YCEM</div>
+                <div class="c-card__item">
+                    <div class="o-grid o-grid--small-fit o-grid--medium-full o-grid--large-full o-grid--demo">
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://view.myairportcams.com/YCEM/showimagecamera1.php"><img class="o-image" src="https://view.myairportcams.com/YCEM/showimagecamera1.php"></a>
+                        </div>
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://view.myairportcams.com/YCEM/showimagecamera2.php"><img class="o-image" src="https://view.myairportcams.com/YCEM/showimagecamera2.php"></a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+			<div class="c-card u-highest">
+                <div class="c-card__item c-card__item--info">YMMB</div>
+                <div class="c-card__item">
+                    <div class="o-grid o-grid--small-fit o-grid--medium-full o-grid--large-full o-grid--demo u-letter-box-small">
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_045.jpg"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_045.jpg"></a>
+                        </div>
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_135.jpg"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_135.jpg"></a>
+                        </div>
+                    </div>
+					<div class="o-grid o-grid--small-fit o-grid--medium-full o-grid--large-full o-grid--demo u-letter-box-small">
+						<div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_225.jpg"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_225.jpg"></a>
+                        </div>
+                        <div class="o-grid__cell u-window-box--xsmall">
+                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_315.jpg"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_315.jpg"></a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="c-card u-highest">
+                <div class="c-card__item c-card__item--info u-centered">Weather</div>
+                <div class="c-card__item">
+                    <div id="weatherContainer" class="o-container o-container--medium">
+                        <table class="c-table c-table--striped ">
+                          <thead class="c-table__head">
+                              <tr class="c-table__row c-table__row--heading ">
+                                <th class="c-table__cell" id ="time">-</th>
+                                <th class="c-table__cell">YCEM</th>
+                                <th class="c-table__cell">YMMB</th>
+                                <th class="c-table__cell">YMEN</th>
+                                <th class="c-table__cell">YMML</th>
+                              </tr>
+                            </thead>
+                            <tbody class="c-table__body">
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Temperature (&degC)</td>
+                                <td class="c-table__cell" id="ycem_air_temp">-</td>
+                                <td class="c-table__cell" id="ymmb_air_temp">-</td>
+                                <td class="c-table__cell" id="ymen_air_temp">-</td>
+                                <td class="c-table__cell" id="ymml_air_temp">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Apparent Temp (&degC)</td>
+                                <td class="c-table__cell" id="ycem_apparent_t">-</td>
+                                <td class="c-table__cell" id="ymmb_apparent_t">-</td>
+                                <td class="c-table__cell" id="ymen_apparent_t">-</td>
+                                <td class="c-table__cell" id="ymml_apparent_t">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Dew Point (&degC)</td>
+                                <td class="c-table__cell" id="ycem_dewpt">-</td>
+                                <td class="c-table__cell" id="ymmb_dewpt">-</td>
+                                <td class="c-table__cell" id="ymen_dewpt">-</td>
+                                <td class="c-table__cell" id="ymml_dewpt">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Humidity (%)</td>
+                                <td class="c-table__cell" id="ycem_rel_hum">-</td>
+                                <td class="c-table__cell" id="ymmb_rel_hum">-</td>
+                                <td class="c-table__cell" id="ymen_rel_hum">-</td>
+                                <td class="c-table__cell" id="ymml_rel_hum">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Rain since 9am (mm)</td>
+                                <td class="c-table__cell" id="ycem_rain_trace">-</td>
+                                <td class="c-table__cell" id="ymmb_rain_trace">-</td>
+                                <td class="c-table__cell" id="ymen_rain_trace">-</td>
+                                <td class="c-table__cell" id="ymml_rain_trace">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">QNH (hPa)</td>
+                                <td class="c-table__cell" id="ycem_press_qnh">-</td>
+                                <td class="c-table__cell" id="ymmb_press_qnh">-</td>
+                                <td class="c-table__cell" id="ymen_press_qnh">-</td>
+                                <td class="c-table__cell" id="ymml_press_qnh">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Wind Direction</td>
+                                <td class="c-table__cell" id="ycem_wind_dir">-</td>
+                                <td class="c-table__cell" id="ymmb_wind_dir">-</td>
+                                <td class="c-table__cell" id="ymen_wind_dir">-</td>
+                                <td class="c-table__cell" id="ymml_wind_dir">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Wind Speed (kts)</td>
+                                <td class="c-table__cell" id="ycem_wind_spd_kt">-</td>
+                                <td class="c-table__cell" id="ymmb_wind_spd_kt">-</td>
+                                <td class="c-table__cell" id="ymen_wind_spd_kt">-</td>
+                                <td class="c-table__cell" id="ymml_wind_spd_kt">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Wind Gust (kts)</td>
+                                <td class="c-table__cell" id="ycem_gust_kt">-</td>
+                                <td class="c-table__cell" id="ymmb_gust_kt">-</td>
+                                <td class="c-table__cell" id="ymen_gust_kt">-</td>
+                                <td class="c-table__cell" id="ymml_gust_kt">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Visibility (km)</td>
+                                <td class="c-table__cell" id="ycem_vis_km">-</td>
+                                <td class="c-table__cell" id="ymmb_vis_km">-</td>
+                                <td class="c-table__cell" id="ymen_vis_km">-</td>
+                                <td class="c-table__cell" id="ymml_vis_km">-</td>
+                              </tr>
+                              <tr class="c-table__row">
+                                <td class="c-table__cell">Data Day / Time</td>
+                                <td class="c-table__cell" id="ycem_local_date_time">-</td>
+                                <td class="c-table__cell" id="ymmb_local_date_time">-</td>
+                                <td class="c-table__cell" id="ymen_local_date_time">-</td>
+                                <td class="c-table__cell" id="ymml_local_date_time">-</td>
+                              </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div> 
+        </div>             
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
+    <script> 
+        /*
+        const ycem_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json"; 
+        const ymmb_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json"; 
+        const ymml_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json"; 
+        */
+        /*
+        const ycem_bom = "IDV60901.94864.json"; 
+        const ymmb_bom = "IDV60901.94870.json"; 
+        const ymml_bom = "IDV60901.94866.json"; 
+        */
+        /* 
+        const ycem_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json');
+        const ymmb_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json');
+        const ymml_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json');
+       */
+       
+        const ycem_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json';
+        const ymmb_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json';
+        const ymen_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json';
+        const ymml_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json';
+
+        const data_list = ["air_temp", "apparent_t", "dewpt", "rel_hum", "rain_trace", "press_qnh", "wind_dir", "wind_spd_kt", "gust_kt", "vis_km", "local_date_time"];
+        
+        $.getJSON(ycem_bom, function(jsonData) {
+            data_list.forEach((item) => {
+                const element = document.getElementById("ycem_" + item);
+                element.innerHTML = jsonData.observations.data[0][item];
+            });
+        });
+        $.getJSON(ymmb_bom, function(jsonData) {            
+            data_list.forEach((item) => {
+                const element = document.getElementById("ymmb_" + item);
+                element.innerHTML = jsonData.observations.data[0][item];
+            });
+        });
+		$.getJSON(ymen_bom, function(jsonData) {
+            data_list.forEach((item) => {
+                const element = document.getElementById("ymen_" + item);
+                element.innerHTML = jsonData.observations.data[0][item];
+            });
+        });
+        $.getJSON(ymml_bom, function(jsonData) {
+            data_list.forEach((item) => {
+                const element = document.getElementById("ymml_" + item);
+                element.innerHTML = jsonData.observations.data[0][item];
+            });
+        });
+    </script> 
+</html>
+                
