@@ -160,27 +160,7 @@
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
     <script> 
-        /*
-        const ycem_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json"; 
-        const ymmb_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json"; 
-        const ymen_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json"; 
-        const ymml_bom = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json"; 
-        */
-        /*
-        const ycem_bom = "IDV60901.94864.json"; 
-        const ymmb_bom = "IDV60901.94870.json"; 
-        const ymen_bom = "IDV60901.95866.json"; 
-        const ymml_bom = "IDV60901.94866.json"; 
-        */
-        /* 
-        const ycem_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json');
-        const ymmb_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json');
-        const ymen_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json');
-        const ymml_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json');
-        */
-        //* 
-		
-		function directionWithRange(direction) {
+	function directionWithRange(direction) {
 		  const directions = [
 			{ dir: "N",   from: 349, to: 11 },
 			{ dir: "NNE", from: 11,  to: 34 },
@@ -199,59 +179,58 @@
 			{ dir: "NW",  from: 304, to: 326 },
 			{ dir: "NNW", from: 326, to: 349 },
 		  ];
-		  
+	  
 		  const match = directions.find(d => d.dir === direction.toUpperCase());
 		  if (!match) {
 			return direction;
 		  }
 		  
 		  return `${match.dir} (${match.from}° - ${match.to}°)`;
-		}
+	}
 
         const ycem_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json';
         const ymmb_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json';
         const ymen_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json';
         const ymml_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json';
-		//*/		
+	    
         const data_list = ["air_temp", "apparent_t", "dewpt", "rel_hum", "rain_trace", "press_qnh", "wind_dir", "wind_spd_kt", "gust_kt", "vis_km", "local_date_time"];
         
         $.getJSON(ycem_bom, function(jsonData) {
             data_list.forEach((item) => {
                 const element = document.getElementById("ycem_" + item);
-				if (item == "wind_dir")
-					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
-				else
-					element.innerHTML = jsonData.observations.data[0][item];
+			if (item == "wind_dir")
+				element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+			else
+				element.innerHTML = jsonData.observations.data[0][item];
             });
         });
         $.getJSON(ymmb_bom, function(jsonData) {            
             data_list.forEach((item) => {
                 const element = document.getElementById("ymmb_" + item);
-				if (item == "wind_dir")
-					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
-				else
-					element.innerHTML = jsonData.observations.data[0][item];
+			if (item == "wind_dir")
+				element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+			else
+				element.innerHTML = jsonData.observations.data[0][item];
             });
         });
 		$.getJSON(ymen_bom, function(jsonData) {
             data_list.forEach((item) => {
                 const element = document.getElementById("ymen_" + item);
-				if (item == "wind_dir")
-					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
-				else
-					element.innerHTML = jsonData.observations.data[0][item];
+			if (item == "wind_dir")
+				element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+			else
+				element.innerHTML = jsonData.observations.data[0][item];
             });
         });
         $.getJSON(ymml_bom, function(jsonData) {
             data_list.forEach((item) => {
                 const element = document.getElementById("ymml_" + item);
-				if (item == "wind_dir")
-					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
-				else
-					element.innerHTML = jsonData.observations.data[0][item];
+			if (item == "wind_dir")
+				element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+			else
+				element.innerHTML = jsonData.observations.data[0][item];
             });
         });
 		
     </script> 
 </html>
-                
