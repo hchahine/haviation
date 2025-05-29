@@ -178,43 +178,80 @@
         const ymen_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json');
         const ymml_bom = 'https://corsproxy.io/?' + encodeURIComponent('http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json');
         */
-        /* 
-        const ycem_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json';
-        const ymmb_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json';
-        const ymen_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json';
-        const ymml_bom = 'http://ec2-54-206-99-127.ap-southeast-2.compute.amazonaws.com:8888/www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json';
-	*/
+        //* 
+		
+		function directionWithRange(direction) {
+		  const directions = [
+			{ dir: "N",   from: 349, to: 11 },
+			{ dir: "NNE", from: 11,  to: 34 },
+			{ dir: "NE",  from: 34,  to: 56 },
+			{ dir: "ENE", from: 56,  to: 79 },
+			{ dir: "E",   from: 79,  to: 101 },
+			{ dir: "ESE", from: 101, to: 124 },
+			{ dir: "SE",  from: 124, to: 146 },
+			{ dir: "SSE", from: 146, to: 169 },
+			{ dir: "S",   from: 169, to: 191 },
+			{ dir: "SSW", from: 191, to: 214 },
+			{ dir: "SW",  from: 214, to: 236 },
+			{ dir: "WSW", from: 236, to: 259 },
+			{ dir: "W",   from: 259, to: 281 },
+			{ dir: "WNW", from: 281, to: 304 },
+			{ dir: "NW",  from: 304, to: 326 },
+			{ dir: "NNW", from: 326, to: 349 },
+		  ];
+		  
+		  const match = directions.find(d => d.dir === direction.toUpperCase());
+		  if (!match) {
+			return direction;
+		  }
+		  
+		  return `${match.dir} (${match.from}° - ${match.to}°)`;
+		}
+
         const ycem_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json';
         const ymmb_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json';
         const ymen_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json';
         const ymml_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json';
-        
+		//*/		
         const data_list = ["air_temp", "apparent_t", "dewpt", "rel_hum", "rain_trace", "press_qnh", "wind_dir", "wind_spd_kt", "gust_kt", "vis_km", "local_date_time"];
         
         $.getJSON(ycem_bom, function(jsonData) {
             data_list.forEach((item) => {
                 const element = document.getElementById("ycem_" + item);
-                element.innerHTML = jsonData.observations.data[0][item];
+				if (item == "wind_dir")
+					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+				else
+					element.innerHTML = jsonData.observations.data[0][item];
             });
         });
         $.getJSON(ymmb_bom, function(jsonData) {            
             data_list.forEach((item) => {
                 const element = document.getElementById("ymmb_" + item);
-                element.innerHTML = jsonData.observations.data[0][item];
+				if (item == "wind_dir")
+					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+				else
+					element.innerHTML = jsonData.observations.data[0][item];
             });
         });
 		$.getJSON(ymen_bom, function(jsonData) {
             data_list.forEach((item) => {
                 const element = document.getElementById("ymen_" + item);
-                element.innerHTML = jsonData.observations.data[0][item];
+				if (item == "wind_dir")
+					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+				else
+					element.innerHTML = jsonData.observations.data[0][item];
             });
         });
         $.getJSON(ymml_bom, function(jsonData) {
             data_list.forEach((item) => {
                 const element = document.getElementById("ymml_" + item);
-                element.innerHTML = jsonData.observations.data[0][item];
+				if (item == "wind_dir")
+					element.innerHTML = directionWithRange(jsonData.observations.data[0][item]);
+				else
+					element.innerHTML = jsonData.observations.data[0][item];
             });
         });
+		
     </script> 
 </html>
                 
