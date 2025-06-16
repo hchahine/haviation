@@ -16,8 +16,37 @@
       color: #005ea5;
     }
 
+    #wrapper {
+      position: relative;
+      display: block;
+      width: 1783px;
+      height: 984px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    #icing-chart {
+      display: block;
+      width: 1783px;
+      height: 984px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
     label {
-      margin-right: 20px;
       font-weight: 500;
     }
 
@@ -43,38 +72,20 @@
     button:hover {
       background-color: #003f7d;
     }
-
-    #wrapper {
-      position: relative;
-      display: inline-block;
-      margin-top: 30px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-    }
-
-    #icing-chart {
-      display: block;
-      max-width: 100%;
-    }
   </style>
 </head>
 <body>
   <h2>Carburettor Icing Probability Plotter</h2>
-  <label>Temperature (°C): <input type="number" id="temp" value="12"></label>
-  <label>Dew Point (°C): <input type="number" id="dew" value="2"></label>
-  <button onclick="plotPoint()">Plot Point</button>
 
   <div id="wrapper">
     <img id="icing-chart" src="carburettor_icing_chart.png" width="1783" height="984">
     <canvas id="overlay" width="1783" height="984"></canvas>
+  </div>
+
+  <div class="controls">
+    <label>Temperature (°C): <input type="number" id="temp" value="12"></label>
+    <label>Dew Point (°C): <input type="number" id="dew" value="2"></label>
+    <button onclick="plotPoint()">Plot Point</button>
   </div>
 
   <script>
