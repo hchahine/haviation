@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carburettor Icing Chart Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #wrapper { position: relative; display: inline-block; }
+    canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+    #icing-chart { display: block; }
+  </style>
+</head>
+<body>
+  <h2>Carburettor Icing Probability Plotter</h2>
+  <label>Temperature (°C): <input type="number" id="temp" value="12"></label>
+  <label>Dew Point (°C): <input type="number" id="dew" value="2"></label>
+  <button onclick="plotPoint()">Plot Point</button>
+
+  <div id="wrapper">
+    <img id="icing-chart" src="carburettor_icing_chart.png" width="1783" height="984">
+    <canvas id="overlay" width="1783" height="984"></canvas>
+  </div>
+
+  <script>
+    function plotPoint() {
+      const temp = parseFloat(document.getElementById('temp').value);
+      const dew = parseFloat(document.getElementById('dew').value);
+      const dpd = temp - dew;
+
+      const canvas = document.getElementById('overlay');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Map temperature (-5–40°C) to X pixels (154–1055)
+	  if(temp <= 0)
+		var x = map(temp, -5, 0, 95, 249);
+	  else if(temp <= 5)
+		var x = map(temp, 0, 5, 249, 408);
+	  else if(temp <= 10)
+		var x = map(temp, 5, 10, 408, 570);
+	  else if(temp <= 15)
+		var x = map(temp, 10, 15, 570, 732);
+	  else if(temp <= 20)
+		var x = map(temp, 15, 20, 732, 895);
+	  else if(temp <= 25)
+		var x = map(temp, 20, 25, 895, 1063);
+	  else if(temp <= 30)
+		var x = map(temp, 25, 30, 1063, 1227);
+	  else if(temp <= 35)
+		var x = map(temp, 30, 35, 1227, 1392);
+	  else 
+		var x = map(temp, 35, 40, 1392, 1562);
+		
+      // Map dew point depression (0–30°) to Y pixels (709–77)
+      const y = map(dpd, 0, 30, 764, 35);
+
+      ctx.beginPath();
+      ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+    }
+
+    function map(value, inMin, inMax, outMin, outMax) {
+      return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+    }
+  </script>
+</body>
+</html>
