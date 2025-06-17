@@ -6,21 +6,21 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      padding: 40px;
+      padding: 20px;
       background-color: #f4f6f8;
       color: #333;
     }
 
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
       color: #005ea5;
     }
 
     #wrapper {
       position: relative;
       display: block;
-      width: 1783px;
-      height: 984px;
+      width: 1366px;
+      height: 754px;
       margin-bottom: 30px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
       border-radius: 8px;
@@ -36,32 +36,34 @@
 
     #icing-chart {
       display: block;
-      width: 1783px;
-      height: 984px;
+      width: 1366px;
+      height: 754px;
     }
 
     .controls {
       display: flex;
-      gap: 20px;
+      gap: 50px;
       align-items: center;
     }
 
     label {
       font-weight: 500;
+      font-size: 2rem;
     }
 
     input[type="number"] {
       width: 60px;
       padding: 6px 8px;
-      font-size: 1rem;
+      font-size: 2rem;
+      font-size: 2rem;
       margin-left: 6px;
-      border-radius: 6px;
+      border-radius: 10px;
       border: 1px solid #ccc;
     }
 
     button {
       padding: 8px 16px;
-      font-size: 1rem;
+      font-size: 2rem;
       background-color: #005ea5;
       color: white;
       border: none;
@@ -78,13 +80,13 @@
   <h2>Carburettor Icing Probability Plotter</h2>
 
   <div id="wrapper">
-    <img id="icing-chart" src="carburettor_icing_chart.png" width="1783" height="984">
-    <canvas id="overlay" width="1783" height="984"></canvas>
+    <img id="icing-chart" src="carburettor_icing_chartM.png" width="1366" height="754">
+    <canvas id="overlay" width="1366" height="754"></canvas>
   </div>
 
   <div class="controls">
-    <label>Temperature (°C): <input type="number" id="temp" value="12"></label>
-    <label>Dew Point (°C): <input type="number" id="dew" value="2"></label>
+    <label>Temperature (°C): <input type="number" id="temp" value="15"></label>
+    <label>Dew Point (°C): <input type="number" id="dew" value="5"></label>
     <button onclick="plotPoint()">Plot Point</button>
   </div>
 
@@ -100,25 +102,25 @@
 
       let x;
       if(temp <= 0)
-        x = map(temp, -5, 0, 95, 249);
+        x = map(temp, -5, 0, 73, 190);
       else if(temp <= 5)
-        x = map(temp, 0, 5, 249, 408);
+        x = map(temp, 0, 5, 190, 312);
       else if(temp <= 10)
-        x = map(temp, 5, 10, 408, 570);
+        x = map(temp, 5, 10, 312, 437);
       else if(temp <= 15)
-        x = map(temp, 10, 15, 570, 732);
+        x = map(temp, 10, 15, 437, 561);
       else if(temp <= 20)
-        x = map(temp, 15, 20, 732, 895);
+        x = map(temp, 15, 20, 561, 686);
       else if(temp <= 25)
-        x = map(temp, 20, 25, 895, 1063);
+        x = map(temp, 20, 25, 686, 814);
       else if(temp <= 30)
-        x = map(temp, 25, 30, 1063, 1227);
+        x = map(temp, 25, 30, 814, 940);
       else if(temp <= 35)
-        x = map(temp, 30, 35, 1227, 1392);
+        x = map(temp, 30, 35, 940, 1066);
       else 
-        x = map(temp, 35, 40, 1392, 1562);
+        x = map(temp, 35, 40, 1066, 1196);
 
-      const y = map(dpd, 0, 30, 764, 35);
+      const y = map(dpd, 0, 30, 585, 27);
 
       ctx.beginPath();
       ctx.arc(x, y, 10, 0, Math.PI * 2);
