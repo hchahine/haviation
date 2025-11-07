@@ -43,18 +43,18 @@
                 <div class="c-card__item">
                     <div class="o-grid o-grid--small-fit o-grid--medium-full o-grid--large-full o-grid--demo u-letter-box-small">
                         <div class="o-grid__cell u-window-box--xsmall">
-                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_045.jpg?v=1"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_045.jpg?v=1"></a>
+                            <a href="#"><img class="o-image ymmbcam" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_045.jpg"></a>
                         </div>
                         <div class="o-grid__cell u-window-box--xsmall">
-                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_135.jpg?v=1"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_135.jpg?v=1"></a>
+                            <a href="#"><img class="o-image ymmbcam" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_135.jpg"></a>
                         </div>
                     </div>
 					<div class="o-grid o-grid--small-fit o-grid--medium-full o-grid--large-full o-grid--demo u-letter-box-small">
 						<div class="o-grid__cell u-window-box--xsmall">
-                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_225.jpg?v=1"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_225.jpg?v=1"></a>
+                            <a href="#"><img class="o-image ymmbcam" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_225.jpg"></a>
                         </div>
                         <div class="o-grid__cell u-window-box--xsmall">
-                            <a href="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_315.jpg?v=1"><img class="o-image" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_315.jpg?v=1"></a>
+                            <a href="#"><img class="o-image ymmbcam" src="https://weathercams.airservicesaustralia.com/wp-content/uploads/airports/086077/086077_315.jpg"></a>
                         </div>
                     </div>
                 </div>
@@ -160,6 +160,12 @@
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
     <script> 
+    const epoch = Math.floor(Date.now() / 1000);
+    document.querySelectorAll('.ymmbcam').forEach(img => {
+        const url = img.dataset.src + '?v=' + epoch;
+        img.src = url;
+        img.parentElement.href = url;
+	});
 	function directionWithRange(direction) {
 		  const directions = [
 			{ dir: "N",   from: 349, to: 11 },
@@ -234,3 +240,4 @@
 		
     </script> 
 </html>
+
