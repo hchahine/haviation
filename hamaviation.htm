@@ -193,11 +193,11 @@
 		  
 		  return `${match.dir} (${match.from}° - ${match.to}°)`;
 	}
-
-        const ycem_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json';
-        const ymmb_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json';
-        const ymen_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json';
-        const ymml_bom = 'https://api.cors.lol/?url=www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json';
+		const cors = 'https://throbbing-thunder-ae49.hc-electro.workers.dev/?url=https://' //'https://api.cors.lol/?url='
+        const ycem_bom =  cors + 'www.bom.gov.au/fwo/IDV60901/IDV60901.94864.json';
+        const ymmb_bom =  cors + 'www.bom.gov.au/fwo/IDV60901/IDV60901.94870.json';
+        const ymen_bom =  cors + 'www.bom.gov.au/fwo/IDV60901/IDV60901.95866.json';
+        const ymml_bom =  cors + 'www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json';
 	    
         const data_list = ["air_temp", "apparent_t", "dewpt", "rel_hum", "rain_trace", "press_qnh", "wind_dir", "wind_spd_kt", "gust_kt", "vis_km", "local_date_time"];
         
